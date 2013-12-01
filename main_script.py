@@ -88,8 +88,15 @@ def check_email():
 				#take_picture()
 				#post_media_tweet()
 				#send_reply_email()
+				server = smtplib.SMTP('smtp.gmail.com:587')  
+				server.starttls()  
+				server.login(USERNAME,PASSWORD)  
+				server.sendmail(USERNAME, from_address_formatted, 'test')  
+				server.quit()
 			else:
 				print 'UNKNOWN ADDRESS: ' + from_address_formatted
+
+
 
 
 if __name__ == "__main__":		
