@@ -1,4 +1,15 @@
 #!/usr/local/bin/python
+"""" 
+To Do List:
+1 - Clean up imports, not sure if i need most to the email. imports
+2 - Import the twitter username from an external file
+3 - Have the last tweet function return the last tweet twitpic link
+4 - Have the send_reply_email be a function that takes in mail_list 
+5 - Clean up the get email functions
+6 - Add logging
+7 - Add error handling for both gmail and twitter response codes
+ """
+
 from __future__ import unicode_literals
 from requests_oauthlib import OAuth1
 from urlparse import parse_qs
@@ -47,7 +58,9 @@ def last_tweet():
 	contentreturn = rawapireturn.content
 	jsonreturn = simplejson.loads(contentreturn)
 	for item in jsonreturn:
-		print item['text']
+		last_tweet = item['text']
+		return last_tweet
+		
 		
 def post_text_tweet():
 	oauth = get_oauth()
@@ -87,18 +100,14 @@ def check_email():
 				print 'Known Address: ' + from_address_formatted
 				#take_picture()
 				#post_media_tweet()
-				#send_reply_email()
 				server = smtplib.SMTP('smtp.gmail.com:587')  
 				server.starttls()  
 				server.login(USERNAME,PASSWORD)  
-				server.sendmail(USERNAME, from_address_formatted, 'test')  
+				server.sendmail(USERNAME, from_address_formatted, 'last_tweet(last_tweet``)')  
 				server.quit()
 			else:
-				print 'UNKNOWN ADDRESS: ' + from_address_formatted
-
-
-
-
+				print 'UNKNOWN ADDRESS: ' + from_address_formatte
+				
 if __name__ == "__main__":		
 	check_email()
 
