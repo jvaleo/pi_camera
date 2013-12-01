@@ -80,8 +80,8 @@ def get_senders(email_ids):
 	imap_server = imaplib.IMAP4_SSL("imap.gmail.com",993)
 	imap_server.login(USERNAME, PASSWORD)
 	imap_server.select('INBOX')
-    senders_list = []
-    for e_id in email_ids[0].split(): 
+	senders_list = []
+	for e_id in email_ids[0].split(): 
     	resp, data = imap_server.fetch(e_id, '(RFC822)')
     	perf = HeaderParser().parsestr(data[0][1])	 
     	senders_list.append(perf['From'])	
