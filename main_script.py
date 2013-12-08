@@ -67,7 +67,7 @@ def post_text_tweet():
 	requests.post("https://api.twitter.com/1.1/statuses/update.json?screen_name=rosieandbuckley&status=" + tweet, auth=oauth)
 	
 def post_media_tweet():
-	dog_states = ['sleep', 'play', 'bark', 'hiding']
+	dog_states = ['sleep', 'play', 'bark', 'hide', 'sing', 'dance', 'fly', 'jump', 'work', 'study', 'eat', 'program', 'write', 'read', 'watch', 'type', 'zumba', 'clean']
 	choosen_dog_state = random.choice(dog_states)
 	photo = open(filename, 'rb')
 	twitter.update_status_with_media(status='Look at us ' + choosen_dog_state, media=photo)	
