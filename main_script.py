@@ -92,22 +92,24 @@ def check_email():
         print('No Unread Emails')
         mail_list = []
     else:
+		last_tweet = last_tweet()
+		msg = MIMEMultipart()
+		msg.attach ( MIMEText(last_tweet) )
+		msg['Subject'] = 'Herro'	
 		mail_list = get_senders(email_ids)
 		for from_address in mail_list:
 			from_address_formatted=from_address[from_address.find("<")+1:from_address.find(">")]
 			if from_address_formatted in known_addresses:
 				print 'Known Address: ' + from_address_formatted
-				#take_picture()
-				#post_media_tweet()
+				take_picture()
+				post_media_tweet()
 				server = smtplib.SMTP('smtp.gmail.com:587')  
 				server.starttls()  
 				server.login(USERNAME,PASSWORD)  
-				server.sendmail(USERNAME, from_address_formatted, 'last_tweet(last_tweet``)')  
+				server.sendmail(USERNAME, from_address_formatted, msg.as_string() )  
 				server.quit()
 			else:
-				print 'UNKNOWN ADDRESS: ' + from_address_formatte
+				print 'UNKNOWN ADDRESS: ' + from_address_formatted
 				
 if __name__ == "__main__":		
 	check_email()
-
-
