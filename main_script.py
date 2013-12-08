@@ -67,8 +67,10 @@ def post_text_tweet():
 	requests.post("https://api.twitter.com/1.1/statuses/update.json?screen_name=rosieandbuckley&status=" + tweet, auth=oauth)
 	
 def post_media_tweet():
+	dog_states = ['sleep', 'play', 'bark', 'hiding']
+	choosen_dog_state = random.choice(dog_states)
 	photo = open(filename, 'rb')
-	twitter.update_status_with_media(status='Herro', media=photo)	
+	twitter.update_status_with_media(status='Look at us ' + choosen_dog_state, media=photo)	
 
 def take_picture():
 	if camera_type == 'pi':
@@ -92,21 +94,27 @@ def check_email():
         print('No Unread Emails')
         mail_list = []
     else:
-		last_tweet = last_tweet()
-		msg = MIMEMultipart()
-		msg.attach ( MIMEText(last_tweet) )
-		msg['Subject'] = 'Herro'	
 		mail_list = get_senders(email_ids)
 		for from_address in mail_list:
 			from_address_formatted=from_address[from_address.find("<")+1:from_address.find(">")]
 			if from_address_formatted in known_addresses:
 				print 'Known Address: ' + from_address_formatted
+				if from_address_formatted is 'jvaleo@mac.com' or 'valj@google.com':
+					from_address_nickname = 'Daddy'
+				elif from_address_formatted is 'laurencastagna@mac.com':
+					from_address_nickname = 'Mommy'
+				else:
+					from_address_nickname = ''
 				take_picture()
 				post_media_tweet()
+				just_posted_tweet = last_tweet()
+				msg = MIMEMultipart()
+				msg.attach ( MIMEText(just_posted_tweet) )
+				msg['Subject'] = 'Herro ' + from_address_nickname
 				server = smtplib.SMTP('smtp.gmail.com:587')  
 				server.starttls()  
 				server.login(USERNAME,PASSWORD)  
-				server.sendmail(USERNAME, from_address_formatted, msg.as_string() )  
+				server.sendmail(USERNAME, from_address_formatted, msg.as_string() ) 
 				server.quit()
 			else:
 				print 'UNKNOWN ADDRESS: ' + from_address_formatted
