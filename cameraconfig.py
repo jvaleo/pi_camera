@@ -1,1 +1,1 @@
-camera_type = 'web'
+camera_type = 'pi'
