@@ -110,7 +110,7 @@ def check_email():
 				just_posted_tweet = last_tweet()
 				msg = MIMEMultipart()
 				msg.attach ( MIMEText(just_posted_tweet) )
-				msg['Subject'] = 'Herro ' + from_address_nickname
+				msg['Subject'] = 'Hello ' + from_address_nickname
 				server = smtplib.SMTP('smtp.gmail.com:587')  
 				server.starttls()  
 				server.login(USERNAME,PASSWORD)  
