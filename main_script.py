@@ -98,19 +98,12 @@ def check_email():
 		for from_address in mail_list:
 			from_address_formatted=from_address[from_address.find("<")+1:from_address.find(">")]
 			if from_address_formatted in known_addresses:
-				print 'Known Address: ' + from_address_formatted
-				if from_address_formatted is 'jvaleo@mac.com' or 'valj@google.com':
-					from_address_nickname = 'Daddy'
-				elif from_address_formatted is 'laurencastagna@mac.com':
-					from_address_nickname = 'Mommy'
-				else:
-					from_address_nickname = ''
 				take_picture()
 				post_media_tweet()
 				just_posted_tweet = last_tweet()
 				msg = MIMEMultipart()
 				msg.attach ( MIMEText(just_posted_tweet) )
-				msg['Subject'] = 'Hello ' + from_address_nickname
+				msg['Subject'] = 'Hello!'
 				server = smtplib.SMTP('smtp.gmail.com:587')  
 				server.starttls()  
 				server.login(USERNAME,PASSWORD)  
